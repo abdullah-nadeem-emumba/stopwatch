@@ -10,16 +10,21 @@ let secondsInterval;
 let minutesInterval;
 let hoursInterval;
 
+let tableIndex = 0;
+
 let hoursText = document.querySelector("#hours");
 let minsText = document.querySelector("#mins");
 let secText = document.querySelector("#secs");
 let msText = document.querySelector("#millisecs");
 let msTextSmall = document.querySelector("#millisecs-small");
 let splitTxt = document.querySelector("#split-time-txt");
+let table = document.querySelector(".table");
 
 let startBtn = document.querySelector("#start-btn");
 let splitBtn = document.querySelector("#split-btn");
 let resetBtn = document.querySelector("#reset-btn");
+
+let tableData = [];
 
 function toggleStart() {
   started = !started;
@@ -60,11 +65,13 @@ function startTimer() {
 }
 
 function pauseTimer() {
-  logTime(hours, mins, secs, millisecs, "Pause");
+  const log = logTime(hours, mins, secs, millisecs, "Pause");
+  tableData.push(log);
   clearInterval(millisecsInterval);
   clearInterval(secondsInterval);
   clearInterval(minutesInterval);
   clearInterval(hoursInterval);
+  createTable();
 }
 
 function resetTimer() {
@@ -73,24 +80,29 @@ function resetTimer() {
   mins = 0;
   hours = 0;
   setTimeInView(hours, mins, secs, millisecs);
+  tableData = [];
+  splitTxt.innerHTML = "Split Time";
+  emptyTable();
+  tableIndex = 0;
 }
 
 function split() {
-  splitTxt.innerHTML = logTime(hours, mins, secs, millisecs, "Split").time;
+  const log = logTime(hours, mins, secs, millisecs, "Split");
+  tableData.push(log);
+  splitTxt.innerHTML = log["Split"];
+  createTable();
 }
 
 function logTime(hours, mins, sec, ms, type) {
-  //return `${type},   ${hours}:${mins}:${sec}.${ms}`;
   return {
-    type,
-    time: `${hours}:${mins}:${sec}.${ms}`,
+    [type]: `${hours}:${mins}:${sec}.${ms}`,
   };
 }
 
 function setTimeInView(hours, mins, sec, ms) {
-  hoursText.innerHTML = hours.toString().length > 1 ? hours : "0" + hours;
-  minsText.innerHTML = mins.toString().length > 1 ? mins : "0" + mins;
-  secText.innerHTML = sec.toString().length > 1 ? sec : "0" + sec;
+  hoursText.innerHTML = hours.toString().length > 1 ? hours : `0${hours}`;
+  minsText.innerHTML = mins.toString().length > 1 ? mins : `0${mins}`;
+  secText.innerHTML = sec.toString().length > 1 ? sec : `0${sec}`;
 
   let stringMS = ms.toString();
   if (stringMS.length > 1) {
@@ -102,4 +114,51 @@ function setTimeInView(hours, mins, sec, ms) {
     msText.innerHTML = ms;
     msTextSmall.innerHTML = 0;
   }
+}
+
+function createTable() {
+  for (let i = tableIndex; i < tableData.length; i++) {
+    let row = document.createElement("tr");
+    let indexCell = document.createElement("td");
+    indexCell.classList.add("table-data");
+    row.appendChild(indexCell);
+    indexCell.innerHTML = `#${i + 1}`;
+    console.log(tableData[i]);
+    for (const [key, value] of Object.entries(tableData[i])) {
+      let cell = document.createElement("td");
+      let div = document.createElement("div");
+      let keyText = document.createElement("p");
+      let valText = document.createElement("p");
+      keyText.classList.add("no-margin");
+      valText.classList.add("no-margin");
+      div.classList.add("cell-div");
+      cell.classList.add("table-data");
+      cell.appendChild(div);
+
+      if (key === "Pause") {
+        valText.classList.add("pink-text");
+      } else {
+        valText.classList.add("orange-text");
+      }
+
+      keyText.classList.add("gray-text");
+
+      let txt2 = document.createTextNode(value);
+      let txt1 = document.createTextNode(key);
+
+      div.appendChild(valText);
+      div.appendChild(keyText);
+
+      valText.appendChild(txt2);
+      keyText.appendChild(txt1);
+
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+  tableIndex = tableData.length;
+}
+
+function emptyTable() {
+  table.innerHTML = "";
 }

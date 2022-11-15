@@ -56,6 +56,37 @@ main {
   background-color: #f5f8fb;
 }
 
+.table-data {
+  min-width: 5em;
+  padding: 0.2em 1em;
+}
+
+.cell-div {
+  display: flex;
+  justify-content: space-between;
+  width: 10em;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.pink-text {
+  color: #fb657f;
+}
+
+.gray-text {
+  color: #b5b6b6;
+}
+
+.orange-text {
+  color: #f29e26;
+}
+
 .split-time {
   color: #f29e26;
   text-transform: uppercase;
