@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Stopwatch</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <span class="time" id="hours">00</span><span class="time">:</span>
+        <span class="time" id="mins">00</span><span class="time">:</span>
+        <span class="time" id="secs">00</span><span class="time">.</span>
+        <span class="time" id="millisecs">0</span>
+        <span class="time-small" id="millisecs-small"></span>
+        <h2 class="split-time">Split Time</h2>
+        <div class="btn-container">
+          <button onclick="toggleStart()" id="start-btn" class="round-btn">
+            Start
+          </button>
+          <button onclick="split()" disabled id="split-btn" class="round-btn">
+            Split
+          </button>
+          <button onclick="resetTimer()" id="reset-btn" class="round-btn">
+            Reset
+          </button>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
