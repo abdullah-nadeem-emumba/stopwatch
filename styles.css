@@ -11,20 +11,49 @@ main {
   display: flex;
 }
 
+.table-container {
+  border-top: 1px solid gray;
+  margin-top: 2em;
+}
+
 .round-btn {
   width: 5.2em;
   height: 5.2em;
   border-radius: 50%;
-  border: 1px solid gray;
+  border: none;
   color: gray;
   margin-left: 0.6rem;
   font-size: medium;
   background-color: #f5f8fb;
   cursor: pointer;
 }
+
+.round-btn:disabled {
+  border: 1px solid gray;
+}
 #start-btn {
   color: #fff;
   background-color: #18a69d;
+}
+
+#reset-btn {
+  color: #fff;
+  background-color: #4487d0;
+}
+
+#reset-btn:disabled {
+  color: gray;
+  background-color: #f5f8fb;
+}
+
+#split-btn {
+  color: #fff;
+  background-color: #f29e26;
+}
+
+#split-btn:disabled {
+  color: gray;
+  background-color: #f5f8fb;
 }
 
 .split-time {

@@ -1,9 +1,9 @@
 let started = false;
-let hours = 00;
-let mins = 00;
-let secs = 00;
+let hours = 0;
+let mins = 0;
+let secs = 0;
 let millisecs = 0;
-let smallMilliSecs = 00;
+let smallMilliSecs = 0;
 
 let millisecsInterval;
 let secondsInterval;
@@ -15,6 +15,7 @@ let minsText = document.querySelector("#mins");
 let secText = document.querySelector("#secs");
 let msText = document.querySelector("#millisecs");
 let msTextSmall = document.querySelector("#millisecs-small");
+let splitTxt = document.querySelector("#split-time-txt");
 
 let startBtn = document.querySelector("#start-btn");
 let splitBtn = document.querySelector("#split-btn");
@@ -59,6 +60,7 @@ function startTimer() {
 }
 
 function pauseTimer() {
+  logTime(hours, mins, secs, millisecs, "Pause");
   clearInterval(millisecsInterval);
   clearInterval(secondsInterval);
   clearInterval(minutesInterval);
@@ -67,14 +69,22 @@ function pauseTimer() {
 
 function resetTimer() {
   millisecs = 0;
-  secs = 00;
-  mins = 00;
-  hours = 00;
+  secs = 0;
+  mins = 0;
+  hours = 0;
   setTimeInView(hours, mins, secs, millisecs);
 }
 
 function split() {
-  console.log("split");
+  splitTxt.innerHTML = logTime(hours, mins, secs, millisecs, "Split").time;
+}
+
+function logTime(hours, mins, sec, ms, type) {
+  //return `${type},   ${hours}:${mins}:${sec}.${ms}`;
+  return {
+    type,
+    time: `${hours}:${mins}:${sec}.${ms}`,
+  };
 }
 
 function setTimeInView(hours, mins, sec, ms) {
@@ -90,6 +100,6 @@ function setTimeInView(hours, mins, sec, ms) {
       msToArray[msToArray.length - 2] + msToArray[msToArray.length - 1];
   } else {
     msText.innerHTML = ms;
+    msTextSmall.innerHTML = 0;
   }
-  //msTextSmall.innerHTML = hours.length > 1 ? hours : "0" + hours;
 }
