@@ -1,10 +1,11 @@
 body {
+  margin: 0;
+  background-color: #f5f8fb;
 }
 main {
 }
 .container {
   margin: auto auto;
-  background-color: #f5f8fb;
   padding: 5em;
 }
 .btn-container {
